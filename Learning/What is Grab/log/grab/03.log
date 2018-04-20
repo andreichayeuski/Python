@@ -1,0 +1,20 @@
+Request headers:
+
+Request body:
+
+
+Response headers:
+HTTP/1.1 302 Found
+Date: Fri, 20 Apr 2018 07:25:52 GMT
+Cache-Control: no-cache,no-store,max-age=0,must-revalidate
+Location: https://yandex.by?nr=17641
+Expires: Fri, 20 Apr 2018 07:25:52 GMT
+Last-Modified: Fri, 20 Apr 2018 07:25:52 GMT
+P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI"
+Set-Cookie: yp=1524295552.yu.3596816631524209152; Expires=Mon, 17-Apr-2028 07:25:52 GMT; Domain=.yandex.by; Path=/
+Set-Cookie: mda=0; Expires=Sat, 20-Apr-2019 07:25:52 GMT; Domain=.yandex.by; Path=/
+Set-Cookie: yandexuid=5590030481524209150; Expires=Mon, 17-Apr-2028 07:25:52 GMT; Domain=.yandex.by; Path=/
+Set-Cookie: i=MMlO3asUjltXsBXXEVAGwEceQkXRVVdrSmF6mpYNCNHdmdsnk+WsZ0o9KG4Acm97gjvQtgwLyh57FPMe9VeUu9h7le4=; Expires=Mon, 17-Apr-2028 07:25:52 GMT; Domain=.yandex.by; Path=/; Secure; HttpOnly
+X-Content-Type-Options: nosniff
+Content-Length: 0
+

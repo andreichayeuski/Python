@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html lang="be">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Яндекс</title>
+    <link rel="shortcut icon" href="">
+    <style type="text/css">
+        body, div, ul, table, tr, td, form, input {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font: .8em Arial, sans-serif;
+            color: #000;
+            background: #fff;
+        }
+
+        a, :visited {
+            color: #2557A9;
+            text-decoration: none;
+        }
+
+        h1 {
+            font-size: 200%;
+            font-weight: normal
+        }
+
+        .header_h1 {
+            margin-top: 2.6em;
+            margin-bottom: 0.75em;
+        }
+
+        p {
+            font-size: 1.15em;
+            line-height: 1.15;
+            margin: 1.15em 0 1.05em
+        }
+
+        a:hover {
+            color: #f00 !important;
+        }
+
+        .b-logo {
+            position: absolute;
+            left: -116px;
+            top: -4px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        [lang="en"] .b-logo,
+        [lang="tr"] .b-logo {
+            left: -128px;
+            top: -13px;
+        }
+
+        .wrap {
+            position: absolute;
+            max-width: 640px;
+            width: 640px;
+            min-height: 400px;
+            top: 76px;
+            left: 186px;
+            padding-right: 16px;
+            bottom: 20px;
+        }
+
+        #text {
+            width: 100%;
+            min-height: 1.3em;
+        }
+
+        * html #text {
+            height: 22px
+        }
+
+        .b-search__arrow {
+            float: right;
+            height: 0;
+            line-height: 0;
+            font-size: 0;
+            border-top: 34px solid #fff;
+            border-left: 17px solid #fc0;
+            border-bottom: 34px solid #fff
+        }
+
+        .b-search form {
+            padding: 10px 0 0 8px
+        }
+
+        input:not([type="image"]), textarea {
+            -webkit-box-sizing: border-box
+        }
+
+        input[type="search"] {
+            -webkit-appearance: textfield;
+            -webkit-rtl-ordering: logical;
+            -webkit-user-select: text;
+            background-color: white;
+            border: 2px inset #ccc;
+            cursor: auto;
+            padding: 1px
+        }
+
+        input[type="search"]::-webkit-search-decoration {
+            display: none
+        }
+
+        input[type="submit"] {
+            -webkit-appearance: button
+        }
+
+        .services {
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .services__item {
+            font-size: 1.1em;
+            float: left;
+            min-width: 230px;
+            margin: 6px 15px 7px 2px;
+        }
+
+        [lang="kk"] .services__item {
+            min-width: 255px;
+        }
+
+        [lang="tr"] .services__item {
+            min-width: 295px;
+        }
+
+        .services__link {
+            padding: 7px 0 6px 25px;
+            background: no-repeat 0 50%
+        }
+
+        .foot {
+            position: absolute;
+            bottom: 0;
+            color: #999;
+        }
+
+        .foot__link {
+            margin-right: 16px;
+        }
+
+        .foot__link:link,
+        .foot__link:visited {
+            color: #999;
+        }
+
+        /* новая стрелка */
+        .search2 {
+            white-space: nowrap;
+        }
+
+        .search2-web {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 36px;
+            margin-bottom: 50px;;
+        }
+
+        .search2-web table {
+            border-collapse: collapse;
+        }
+
+        .search2-web table, .search2-web tr, .search2-web td {
+            margin: 0;
+            padding: 0;
+        }
+
+        .search2-web__input-cell {
+            width: 100%;
+            text-align: left;
+        }
+
+        .search2-web__input-wrapper {
+            position: relative;
+        }
+
+        .input {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .input_size_m {
+            font-size: 15px;
+            line-height: 32px;
+        }
+
+        .input_theme_websearch {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 2px 0 2px 2px;
+            background-color: #FFDB4C;
+            background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #FFDB4C), to(#FC0));
+            background-image: -webkit-linear-gradient(top right, #FFDB4C 0, #FC0 100%);
+            background-image: linear-gradient(top right, #ffdb4c 0, #fc0 100%);
+        }
+
+        .input_theme_websearch.input {
+            font-size: 16px;
+        }
+
+        .input__box {
+            position: relative;
+            display: block;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            cursor: text;
+            padding-right: 6px;
+        }
+
+        .input_size_m .input__box {
+            /*padding-right: 30px;*/
+        }
+
+        .input_theme_websearch .input__box {
+            line-height: 32px;
+            background-color: #FFF;
+        }
+
+        input {
+            font: 13px Arial, Helvetica, sans-serif;
+        }
+
+        .input__control {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            margin: 0;
+            font-size: 100%;
+            color: #000;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-appearance: none;
+        }
+
+        @media (min-width: 0) {
+            .input__control {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: .4em 0;
+                outline: 0;
+                border: 0;
+                background: 0 0;
+            }
+        }
+
+        .input_size_m .input__control {
+            padding-left: 10px;
+            font-size: 16px;
+            padding-top: 6px;
+            padding-bottom: 4px;
+        }
+
+        .input_theme_websearch .input__control {
+            font-family: arial, sans-serif;
+            color: #000;
+            border: 0 !important;
+        }
+
+        .input__samples {
+            position: absolute;
+            display: block;
+            left: 0;
+            margin-top: .7em;
+            font-size: .9em;
+            line-height: normal;
+            white-space: normal;
+        }
+
+        .input__samples, .input__samples .b-link {
+            cursor: pointer;
+            color: #000;
+        }
+
+        .input__samples .b-link_pseudo_yes .b-link__inner {
+            color: #669;
+        }
+
+        .button {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            text-align: center;
+            white-space: nowrap;
+            outline: 0;
+        }
+
+        @media (min-width: 0) {
+            .button {
+                border: 0;
+                background: 0 0;
+            }
+        }
+
+        .button {
+            cursor: pointer;
+        }
+
+        .button_theme_websearch {
+            overflow: visible;
+            font-family: arial, sans-serif;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .arrow2 {
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        .arrow2_size_l {
+            margin-right: 9px;
+            line-height: 34px;
+            height: 36px;
+        }
+
+        .arrow2_theme_websearch-button {
+            min-width: 79px;
+            background-color: #FFDB4C;
+            -webkit-transition: background .1s ease-out;
+            transition: background .1s ease-out;
+        }
+
+        .arrow2_theme_websearch-button:active {
+            background-color: #F2CF48;
+        }
+
+        .arrow2:before {
+            position: absolute;
+            top: 0;
+            content: '';
+            background-color: inherit;
+            -webkit-transform: rotate(45deg) skew(18.435deg, 18.435deg) scale(.53);
+            -ms-transform: rotate(45deg) skew(18.435deg, 18.435deg) scale(.53);
+            transform: rotate(45deg) skew(18.435deg, 18.435deg) scale(.53);
+        }
+
+        .arrow2_size_l:before {
+            right: -18px;
+            width: 36px;
+            height: 36px;
+        }
+
+        .button__text {
+            position: relative;
+            pointer-events: none;
+        }
+
+        .button_theme_websearch .button__text {
+            padding: 0 14px 0 19px;
+        }
+    </style>
+    <!--[if IE 8]>
+    <style type="text/css">
+        .input_theme_websearch .input__control {
+            padding-left: 0;
+        }
+
+        .button_theme_websearch {
+            border-width: 0;
+        }
+
+        .button_theme_websearch:before {
+            display: block;
+            top: 0;
+            right: -11px;
+            border: 18px solid transparent;
+            border-left-width: 11px;
+            border-right-width: 0;
+            border-left-color: #FFDB4C;
+            background: transparent;
+            height: 0;
+            width: 0;
+        }
+
+        .button_theme_websearch:active:before {
+            display: block;
+            top: -1px;
+            right: -10px;
+            border-left-color: #F2CF48;
+        }
+    </style>
+    <![endif]-->
+    <script type="text/javascript">document.documentElement.id = "js";
+    window.onload = function () {
+        text.value = '';
+    }
+    </script>
+</head>
+<body>
+<div class="wrap">
+    <img class="b-logo" src="//yastatic.net/yaru/1.7/logo.png" alt="Яндекс"/>
+    <form class="search2 search2-web" action="//yandex.by/yandsearch" role="search">
+        <input type="hidden" name="lr" value="157">
+        <table class="suggest2-form__node">
+            <tbody>
+            <tr>
+                <td class="search2-web__input-cell">
+                    <div class="search2-web__input-wrapper">
+                <span class="input input_size_m input_theme_websearch">
+                    <span class="input__box">
+                        <input class="input__control" id="text" name="text" autocomplete="off" tabindex="2"
+                               autocorrect="off" autocapitalize="off" spellcheck="false" type="search" autofocus>
+                        <span class="input__samples">Напрыклад, <a class="b-link b-link_pseudo_yes input__sample"
+                                                                   tabindex="-1"><span class="b-link__inner"
+                                                                                       onclick="searchSample()">што такое памылка <span
+                                id="err">502</span></span></a>?</span>
+                        <script>
+                            var err_first_digit = Math.floor(Math.random() * 2) + 4;
+                            var err_last_digit = Math.floor(Math.random() * 3) + 2;
+                            if (err_first_digit == 4 && err_last_digit == 2) err_last_digit = 8;
+                            var err = err_first_digit + '0' + err_last_digit;
+                            document.getElementById("err").innerHTML = err;
+                            var text = document.getElementById("text");
+                            text.focus();
+
+                            function searchSample() {
+                                text.value = "што такое памылка  " + err;
+                                if (text.createTextRange) {
+                                    var r = text.createTextRange();
+                                    r.collapse(false);
+                                    r.select();
+                                    r.collapse(false);
+                                }
+                                if (text.selectionStart) {
+                                    var end = text.value.length;
+                                    text.setSelectionRange(end, end);
+                                }
+                                text.focus();
+                            }
+                        </script>
+                    </span>
+                </span>
+                    </div>
+                </td>
+                <td class="search2-web__button-cell">
+                    <button class="button button_theme_websearch arrow2 arrow2_size_l arrow2_theme_websearch-button suggest2-form__button i-bem button_js_inited"
+                            data-bem="{&quot;button&quot;:{}}" role="button" type="submit" tabindex="-1">
+                        <span class="button__text">Знайсці</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <h1 class="header header_h1">Адбылася памылка на серверы</h1>
+    <p>Мы ведаем пра праблему і працуем над яе развязаннем. Паспрабуйце <a href=""
+                                                                           onclick="location.reload(true);return false;">абнавіць</a>
+        старонку праз нейкі час.</p>
+    <p>Тым часам вы можаце пашукаць што-небудзь у інтэрнэце або:</p>
+    <ul class="services">
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/HoBTSZ2ai6LW6GBiDxeYOcIcp3M.png)"
+                                      href="//mail.yandex.by/">Праверыць пошту</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/g0nVXiT78xqSV0Yef8za38q2eJU.png)"
+                                      href="//music.yandex.by/">Паслухаць музыку</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/Ym4fSGelWhwEPMzLltBlowYOyXk.png)"
+                                      href="//pogoda.yandex.by/">Даведацца прагноз надвор'я</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/nxC5iN9kouuDFYuRqoeqd2ojRRo.png)"
+                                      href="//fotki.yandex.ru/">Паглядзець фоткі</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/mjhyREEiYd6IeT2Qw4sUlHcNdto.png)"
+                                      href="//maps.yandex.ru/">Паглядзець мапы і пробкі</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/KCbnoGyFwrWd-nZnEdUyLZdhjBo.png)"
+                                      href="//afisha.yandex.by">Схадзіць у кіно</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/Dvb9ceav9CjlIPhqpF8_WCrkvZg.png)"
+                                      href="http://market.yandex.by/">Набыць што-небудзь</a></li>
+        <li class="services__item"><a class="services__link"
+                                      style="background-image:url(//yastatic.net/lego/_/6XS6AN9n2NeWoVgSOrIy6R0Yvk4.png)"
+                                      href="//rabota.yandex.by">Знайсці новую працу</a></li>
+    </ul>
+    <div class="foot">
+        &nbsp;<a class="foot__link" href="//company.yandex.ru/">Кампанія</a>&nbsp;<a class="foot__link"
+                                                                                     href="//company.yandex.com/">About</a>&copy;&nbsp;<a
+            class="foot__link" href="//www.yandex.by/">Яндекс</a>
+    </div>
+</div>
+</body>
+</html>
