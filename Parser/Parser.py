@@ -14,6 +14,16 @@ def get_page(string, filename):
         f.write(text)
 
 
+def replace_all_slash(string):
+    res = string.replace('/', '\/')
+    return res
+
+
+def replace_all_kav(string):
+    res = string.replace('\"', '\\"')
+    return res
+
+
 def get_href(soup):
     print(soup.title)
     div = soup.find('div', class_='events-block js-cut_wrapper')
@@ -41,72 +51,91 @@ def get_href(soup):
 def get_info(string):
     source = 'result.html'
     global i
-    filename = "" + str(i) + '.json'
+    filename = "" + str(i) + '.xml'
     i += 1
     print(i)
     get_page(string, source)
     html = open(source, 'rb')
     soup = BeautifulSoup(html.read(), "html.parser")
     with open(filename, 'w+', encoding='utf-8') as result:
-        # MAIN IMAGE
-        image_main = soup.find('img', class_='main_image')
-        image_main = '' if image_main is None else image_main.get('src')
-        print(image_main)
-        result.write('{"image_main":"' + image_main + '",')
-        # NAME
-        name = soup.find('h1', id='event-name')
-        name = '' if name is None else name.text
-        print(name)
-        result.write('"name":"' + name + '",')
+        result.write('<?xml version="1.0"?>\n<Film xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ')
+        result.write('xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n')
         # AGE RESTRICTIONS
-        age = soup.find('span', class_='label')
-        age = '' if age is None else age.text
-        print(age)
-        result.write('"age":"' + age + '",')
-        # GENRE
-        genre = soup.find('td', class_='genre')
-        if genre is None:
-            genre = ''
-            result.write('"genre":{' + genre + '},')
+        age = soup.find_all('span', class_='label')
+        counter = 0
+        for elem in age:
+            counter += 1
+        if counter == 0:
+            age = ''
         else:
-            genre = genre.text
-            genre = genre_parse(genre)
-            print(genre)
-            result.write('"genre":{')
-            for a in genre:
-                result.write('"' + a + '",')
-            result.seek(result.tell() - 1)
-            result.write('},')
-        # YEAR
-        year = soup.find('td', class_='year')
-        year = '' if year is None else year.text
-        print(year)
-        result.write('"year":"' + year + '",')
+            if counter == 1:
+                age = age[0].text
+            else:
+                age = age[1].text
+        print(age)
+        result.write('<Age>' + age + '</Age>\n')
         # COUNTRY
         country = soup.find('td', class_='author')
         country = '' if country is None else country.text
         print(country)
-        result.write('"county":"' + country + '",')
+        result.write('<County>' + country + '</County>\n')
         # DURATION
         duration = soup.find('td', class_='duration')
         duration = '' if duration is None else duration.text
         print(duration)
-        result.write('"duration":"' + duration + '",')
-        # RATING
-        rating = soup.find('span', class_='rating-big__value')
-        rating = '' if rating is None else rating.text
-        print(rating)
-        result.write('"rating":"' + rating + '",')
+        result.write('<Duration>' + duration + '</Duration>\n')
+        # GENRE
+        genre = soup.find('td', class_='genre')
+        if genre is None:
+            result.write('<Genre />\n')
+        else:
+            genre = genre.text
+            genre = genre_parse(genre)
+            print(genre)
+            result.write('<Genre>\n')
+            for a in genre:
+                result.write('<string>' + a + '</string>\n')
+            result.seek(result.tell() - 1)
+            result.write('</Genre>\n')
+        # ID
+        result.write('<Id>' + str(i) + '</Id>\n')
+        # IMAGE_MAIN
+        image_main = soup.find('img', class_='main_image')
+        image_main = '' if image_main is None else image_main.get('src')
+        print(image_main)
+        result.write('<Image_Main>' + image_main + '</Image_Main>\n')
+        # MORE IMAGE
+        img_more = soup.find_all('td', itemprop='image')
+        if img_more.count(str) == 0:
+            image = '<Images />\n'
+            result.write(image)
+        else:
+            image = '<Images>\n'
+            for a in img_more:
+                image += '<string>' + a.find('a').get('href') + '</string>\n'
+            print(image)
+            result.write(image)
+            result.write('</Images>\n')
         # INFO
         info = soup.find('div', itemprop='description')
         info = '' if info is None else info.next
         print(info)
-        result.write('"info":"' + info + '",')
+        result.write('<Info>' + info + '</Info>\n')
+        # NAME
+        name = soup.find('h1', id='event-name')
+        name = '' if name is None else name.text
+        print(name)
+        result.write('<Name>' + name + '</Name>\n')
+        # RATING
+        rating = soup.find('span', class_='rating-big__value')
+        rating = '' if rating is None else rating.text
+        print(rating)
+        result.write('<Rating>' + rating + '</Rating>\n')
         # VIDEO
         text = open(source, 'r', encoding='charmap')
         temp = text.read()
         buf = temp.find('"video", file: ')
-        video = '"'
+        video = ''
         if buf != -1:
             buf += 15
             print(temp[buf])
@@ -114,22 +143,13 @@ def get_info(string):
                 video += temp[buf]
                 buf += 1
             print(video)
-        video += '"'
-        result.write('"video":' + video + ',')
-        # MORE IMAGE (we need they?)
-        img_more = soup.find_all('td', itemprop='image')
-        image = '"image":{'
-        if img_more.count(str) == 0:
-            image = '"image":{}'
-            result.write(image)
-        else:
-            for a in img_more:
-                image += '"' + a.find('a').get('href') + '",'
-            print(image)
-            result.write(image)
-            result.seek(result.tell() - 1)
-            result.write('}')
-        result.write('}')
+        result.write('<Video>' + video + '</Video>\n')
+        # YEAR
+        year = soup.find('td', class_='year')
+        year = '' if year is None else year.text
+        print(year)
+        result.write('<Year>' + year + '</Year>\n')
+        result.write('</Film>')
 
 
 i = 0
