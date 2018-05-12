@@ -86,17 +86,13 @@ def get_info(string):
         result.write('<Duration>' + duration + '</Duration>\n')
         # GENRE
         genre = soup.find('td', class_='genre')
+        result.write('<Genre>\n')
         if genre is None:
-            result.write('<Genre />\n')
+            result.write(' ')
         else:
             genre = genre.text
-            genre = genre_parse(genre)
-            print(genre)
-            result.write('<Genre>\n')
-            for a in genre:
-                result.write('<string>' + a + '</string>\n')
-            result.seek(result.tell() - 1)
-            result.write('</Genre>\n')
+            result.write(genre)
+        result.write('</Genre>\n')
         # ID
         result.write('<Id>' + str(i) + '</Id>\n')
         # IMAGE_MAIN
@@ -106,19 +102,23 @@ def get_info(string):
         result.write('<Image_Main>' + image_main + '</Image_Main>\n')
         # MORE IMAGE
         img_more = soup.find_all('td', itemprop='image')
-        if img_more.count(str) == 0:
-            image = '<Images />\n'
+        image = '<Images>\n'
+        if img_more.__len__() == 0:
             result.write(image)
+            result.write(' ')
         else:
-            image = '<Images>\n'
             for a in img_more:
-                image += '<string>' + a.find('a').get('href') + '</string>\n'
+                image += a.find('a').get('href') + ' '
             print(image)
             result.write(image)
-            result.write('</Images>\n')
+        result.write('</Images>\n')
         # INFO
-        info = soup.find('div', itemprop='description')
-        info = '' if info is None else info.next
+        info = soup.find('span', class_='_reachbanner_')
+        if info is None:
+            info = soup.find('div', itemprop='description')
+            info = '' if info is None else info.contents[0].strip()
+        else:
+            info = info.text
         print(info)
         result.write('<Info>' + info + '</Info>\n')
         # NAME
@@ -137,7 +137,7 @@ def get_info(string):
         buf = temp.find('"video", file: ')
         video = ''
         if buf != -1:
-            buf += 15
+            buf += 16
             print(temp[buf])
             while temp[buf] != '"':
                 video += temp[buf]
