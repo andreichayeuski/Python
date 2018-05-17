@@ -78,7 +78,12 @@ def get_info(string):
         country = soup.find('td', class_='author')
         country = '' if country is None else country.text
         print(country)
-        result.write('<County>' + country + '</Country>\n')
+        result.write('<Country>' + country + '</Country>\n')
+        # DATE
+        date = soup.find('td', class_='date')
+        date = '' if date is None else date.text
+        print(date)
+        result.write('<Date>' + date + '</Date>')
         # DURATION
         duration = soup.find('td', class_='duration')
         duration = '' if duration is None else duration.text
