@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from requests import request
-import re
 
 
 def get_page(string, filename):
@@ -81,7 +80,7 @@ def get_info(string):
         result.write('<Info>' + info_res + '</Info>\n')
         # LITTLE INFO
         little_info = soup.find('ul', class_='b-vlist')
-        if little_info is None:
+        if little_info is None or little_info.find('li').text[0] == 'F':
             little_info = ''
         else:
             li = little_info.find_all('li')
@@ -96,7 +95,7 @@ def get_info(string):
         print(name)
         result.write('<Name>' + name + '</Name>\n')
         # SCHEDULE
-        schedule = soup.find('li', class_='schedule')
+        schedule = soup.find('li', class_='shedule')
         schedule = '' if schedule is None else schedule.text
         print(schedule)
         result.write('<Schedule>' + schedule + '</Schedule>\n')
@@ -109,6 +108,7 @@ def get_info(string):
 
 
 i = 0
+j = 0
 
 
 def main():

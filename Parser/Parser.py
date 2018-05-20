@@ -8,6 +8,11 @@ def genre_parse(string):
     return result
 
 
+def get_substr_date(string):
+    result = string.replace('В прокате ', '')
+    return result
+
+
 def get_page(string, filename):
     text = request('get', string).text
     with open(filename, 'w', encoding='utf-8') as f:
@@ -49,9 +54,9 @@ def get_href(soup):
 
 
 def get_info(string):
-    source = 'result.html'
+    source = 'Film/result.html'
     global i
-    filename = "" + str(i) + '.xml'
+    filename = 'Film/' + str(i) + '.xml'
     i += 1
     print(i)
     get_page(string, source)
@@ -82,8 +87,9 @@ def get_info(string):
         # DATE
         date = soup.find('td', class_='date')
         date = '' if date is None else date.text
+        date = get_substr_date(date)
         print(date)
-        result.write('<Date>' + date + '</Date>')
+        result.write('<Date>' + date + '</Date>\n')
         # DURATION
         duration = soup.find('td', class_='duration')
         duration = '' if duration is None else duration.text
@@ -109,8 +115,15 @@ def get_info(string):
         img_more = soup.find_all('td', itemprop='image')
         image = '<Images>\n'
         if img_more.__len__() == 0:
-            result.write(image)
-            result.write(' ')
+            img_more = soup.find_all('img', class_='fotorama__img')
+            if img_more.__len__() == 0:
+                result.write(image)
+                result.write(' ')
+            else:
+                for a in img_more:
+                    image += a.get('src') + ' '
+                print(image)
+                result.write(image)
         else:
             for a in img_more:
                 image += a.find('a').get('href') + ' '
@@ -161,7 +174,7 @@ i = 0
 
 
 def main():
-    filename = 'out.html'
+    filename = 'Film/out.html'
     get_page('https://afisha.tut.by/film', filename)
     html = open(filename, 'rb')
     soup = BeautifulSoup(html.read(), "html.parser")
