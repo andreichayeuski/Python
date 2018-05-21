@@ -33,7 +33,7 @@ def get_href(soup):
     print(soup.title)
     div = soup.find('div', class_='events-block js-cut_wrapper')
     li = div.find_all('li', class_='lists__li')
-    filename = soup.title.text + 'list.txt'
+    filename = 'Film/' + soup.title.text + 'list.txt'
     open(filename, 'a').close()
     with open(filename, 'r') as file:
         text = file.read()
@@ -67,18 +67,15 @@ def get_info(string):
         result.write('xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n')
         # AGE RESTRICTIONS
         age = soup.find_all('span', class_='label')
-        counter = 0
         for elem in age:
-            counter += 1
-        if counter == 0:
-            age = ''
-        else:
-            if counter == 1:
-                age = age[0].text
+            if elem.text[0] == 'П' or elem.text == '3D':
+                print('no restrictions')
+                age = ''
             else:
-                age = age[1].text
+                age = elem.text
+                break
         print(age)
-        result.write('<Age>' + age + '</Age>\n')
+        result.write('<Age>' + ('' if age == [] else age) + '</Age>\n')
         # COUNTRY
         country = soup.find('td', class_='author')
         country = '' if country is None else country.text
