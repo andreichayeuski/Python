@@ -68,17 +68,18 @@ def get_info(string):
             result.write(image)
         result.write('</Images>\n')
         # INFO
-        all_info = soup.find_all('div', class_='hidden js-cut_block')
-        info_res = ''
-        if all_info is None:
-            o = 0
+        all_info = soup.find('div', class_='hidden js-cut_block')
+        excess_div = all_info.find('div', class_='b-film-info js-ttinfo')
+        if excess_div is not None:
+            info_res = ''
         else:
-            for smart_info in all_info:
-                info = smart_info.find_all('p')
-                for a in info:
-                    info_res += a.text + '\n'
+            info_res = all_info.text
         print(info_res)
         result.write('<Info>' + info_res + '</Info>\n')
+        # LINK
+        link = string
+        print(link)
+        result.write('<Link>' + link + '</Link>\n')
         # LITTLE INFO
         little_info = soup.find('ul', class_='b-vlist')
         if little_info is None or little_info.find('li').text[0] == 'F':

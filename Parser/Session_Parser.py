@@ -15,13 +15,14 @@ def get_sessions(soup, film_date):
     print(film_date)
     all_div = soup.find_all('div', class_='b-film-info js-ttinfo')
     for film_div in all_div:
-        cinema_name = film_div.find('div', class_='name ')
+        cinema_link = film_div.find('div', class_='name ')
         all_film_li = film_div.find_all('li', class_='b-film-list__li')
-        cinema_name = '' if cinema_name is None else cinema_name.text
-        print('\t' + cinema_name)
+        cinema_link = '' if cinema_link is None else cinema_link.find('a').get('href')
+        print('\t' + cinema_link)
         for film_li in all_film_li:
-            film_name = film_li.find('span', itemprop='summary').text
-            print('\t\t' + film_name)
+            film_link = film_li.find('div', class_='film-name')
+            film_link = film_link.find('a').get('href')
+            print('\t\t' + film_link)
             all_ul = film_li.find_all('ul', class_='b-list b-shedule-list')
             for ul in all_ul:
                 all_li = ul.find_all('li', class_='lists__li')
@@ -37,8 +38,8 @@ def get_sessions(soup, film_date):
                         result.write('XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">\n')
                         result.write('<Time>' + film_time + '</Time>\n')
                         result.write('<Date>' + film_date + '</Date>\n')
-                        result.write('<FilmName>' + film_name + '</FilmName>\n')
-                        result.write('<CinemaName>' + cinema_name + '</CinemaName>\n')
+                        result.write('<FilmLink>' + film_link + '</FilmLink>\n')
+                        result.write('<CinemaLink>' + cinema_link + '</CinemaLink>\n')
                         result.write('</SessionFromFile>')
 
 

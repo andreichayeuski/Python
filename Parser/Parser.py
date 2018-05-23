@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 from requests import request
 import re
+import datetime
+from datetime import *
 
 
 def genre_parse(string):
@@ -82,11 +84,11 @@ def get_info(string):
         print(country)
         result.write('<Country>' + country + '</Country>\n')
         # DATE
-        date = soup.find('td', class_='date')
-        date = '' if date is None else date.text
-        date = get_substr_date(date)
-        print(date)
-        result.write('<Date>' + date + '</Date>\n')
+        film_date = soup.find('td', class_='date')
+        film_date = '' if film_date is None else film_date.text
+        film_date = get_substr_date(film_date)
+        print(film_date)
+        result.write('<Date>' + film_date + '</Date>\n')
         # DURATION
         duration = soup.find('td', class_='duration')
         duration = '' if duration is None else duration.text
@@ -103,6 +105,10 @@ def get_info(string):
         result.write('</Genre>\n')
         # ID
         result.write('<Id>' + str(i) + '</Id>\n')
+        # LINK
+        link = string
+        print(link)
+        result.write('<Link>' + link + '</Link>\n')
         # IMAGE_MAIN
         image_main = soup.find('img', class_='main_image')
         image_main = '' if image_main is None else image_main.get('src')
@@ -172,10 +178,13 @@ i = 0
 
 def main():
     filename = 'Film/out.html'
-    get_page('https://afisha.tut.by/film', filename)
-    html = open(filename, 'rb')
-    soup = BeautifulSoup(html.read(), "html.parser")
-    get_href(soup)
+    day = datetime.today().day
+    print(day)
+    for x in range(day, day + 4):
+        get_page('https://afisha.tut.by/day/film/2018/05/' + str(x), filename)
+        html = open(filename, 'rb')
+        soup = BeautifulSoup(html.read(), "html.parser")
+        get_href(soup)
 
 
 if __name__ == '__main__':
